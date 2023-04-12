@@ -1,6 +1,6 @@
 import pandas as pd
 
-import pandas_extensions
+import pandas_extensions  # noqa: F401
 
 DF = pd.DataFrame(
     {
