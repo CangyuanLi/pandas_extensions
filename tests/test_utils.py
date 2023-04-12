@@ -1,9 +1,8 @@
 import pandas as pd
-from collections.abc import Collection, Iterable, Sequence
 
 import pandas_extensions
 
-df = pd.DataFrame(
+DF = pd.DataFrame(
     {
         "First_Name": [
             "Tom",
@@ -20,8 +19,7 @@ df = pd.DataFrame(
     }
 )
 
-for a in df["First_Name"].utils.levelsof():
-    print(a)
 
-for a in df.utils.levelsof(["First_Name", "Last_Name"], named_tuples=False):
-    print(a)
+def test_isid():
+    assert DF.utils.isid("Student_ID") is True
+    assert DF.utils.isid("First_Name") is False
