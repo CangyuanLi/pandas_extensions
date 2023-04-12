@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="custom_pandas_extensions",
-    version="0.0.1",
+    version="0.0.2",
     author="Cangyuan Li",
     author_email="everest229@gmail.com",
     description="Adds methods to pandas",
@@ -13,6 +13,6 @@ setuptools.setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent"
-    ]
+        "Operating System :: OS Independent",
+    ],
 )

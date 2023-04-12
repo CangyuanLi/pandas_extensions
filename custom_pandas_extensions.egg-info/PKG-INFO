@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: custom-pandas-extensions
-Version: 0.0.1
+Version: 0.0.2
 Summary: Adds methods to pandas
 Home-page: https://github.com/CangyuanLi/pandas_extensions
 Author: Cangyuan Li
