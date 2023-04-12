@@ -14,12 +14,27 @@ class CustomUtilsAccessor:
         self._obj = obj
 
     def _get_names(self) -> list[str]:
+        """Return all the column names as a list. Necessary since Series objects
+        don't have a "columns" attribute.
+
+        Returns:
+            list[str]: list of all column names
+        """
         if isinstance(self._obj, pd.DataFrame):
             return list(self._obj.columns)
 
         return [self._obj.name]
 
     def _set_keys(self, keys: Optional[Keys]) -> list[str]:
+        """Allow keys to be specified either in a collection (list, tuple, set) or
+        as a string, if there is only one key.
+
+        Args:
+            keys (Optional[Keys]): Columns
+
+        Returns:
+            list[str]: column names as a list of strings
+        """
         if keys is None:
             return self._get_names()
 
@@ -65,7 +80,7 @@ class CustomUtilsAccessor:
         if not named_tuples:
             name = None
         else:
-            name = "Pandas"
+            name = "Pandas"  # default name in Pandas
 
         df = pd.DataFrame(self._obj)
         levels = (
@@ -78,7 +93,7 @@ class CustomUtilsAccessor:
         return levels
 
     def duplicates(self, keys: Optional[Keys] = None) -> PandasObj:
-        """An analogue of Stata's duplicates tag.
+        """An analogue of Stata's "duplicates tag".
 
         Args:
             keys (Optional[Keys], optional): Columns. Defaults to None.
