@@ -1,0 +1,3 @@
+SPECIAL_CHAR_MAPPER = {
+    ""
+}
