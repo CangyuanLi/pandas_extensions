@@ -1,11 +1,12 @@
 from collections.abc import Container
 import string
+from typing import Optional
 
 import pandas as pd
 
+
 @pd.api.extensions.register_series_accessor("str_exts")
 class CustomStringExtensionsAccessor:
-    
     def __init__(self, series: pd.Series):
         self._validate(series)
         self._series = series
@@ -15,7 +16,7 @@ class CustomStringExtensionsAccessor:
         if not pd.api.types.is_string_dtype(series):
             raise TypeError(f"Column {series.name} must be of string type.")
 
-    def remove_puncs(self, exclude: Container[str]=None) -> pd.Series:
+    def remove_puncs(self, exclude: Optional[Container[str]] = None) -> pd.Series:
         if exclude is None:
             exclude = []
 
@@ -29,11 +30,12 @@ class CustomStringExtensionsAccessor:
     def sanitize(self) -> pd.Series:
         col = self._series
         col = (
-            col.str.encode("ascii", "ignore").str.decode("ascii")
-               .str.upper()
-               .str.strip()
-               .str_exts.remove_puncs()
-               .str.replace(r"\s+", " ", regex=True)
+            col.str.encode("ascii", "ignore")
+            .str.decode("ascii")
+            .str.upper()
+            .str.strip()
+            .str_exts.remove_puncs()
+            .str.replace(r"\s+", " ", regex=True)
         )
 
         return col
