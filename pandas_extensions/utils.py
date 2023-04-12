@@ -78,6 +78,14 @@ class CustomUtilsAccessor:
         return levels
 
     def duplicates(self, keys: Optional[Keys] = None) -> PandasObj:
+        """An analogue of Stata's duplicates tag.
+
+        Args:
+            keys (Optional[Keys], optional): Columns. Defaults to None.
+
+        Returns:
+            PandasObj: A DataFrame or Series of duplicates by key
+        """
         keys = self._set_keys(keys)
 
         obj = self._obj.loc[self._obj.duplicated(subset=keys, keep=False)].sort_values(
