@@ -108,3 +108,16 @@ class CustomUtilsAccessor:
         )
 
         return obj
+
+    def group(self, keys: Optional[Keys] = None) -> list:
+        """Equivalent of Stata's `egen group()` function.
+
+        Args:
+            keys (Optional[Keys], optional): Columns. Defaults to None.
+
+        Returns:
+            list: Column as list
+        """
+        obj = self._obj
+
+        return obj.groupby(self._set_keys(keys)).ngroup().to_list()
