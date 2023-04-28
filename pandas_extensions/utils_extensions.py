@@ -121,3 +121,9 @@ class CustomUtilsAccessor:
         obj = self._obj
 
         return obj.groupby(self._set_keys(keys)).ngroup().to_list()
+
+    def pprint(self, *args):
+        with pd.option_context(
+            "display.max_rows", None, "display.max_columns", None, *args
+        ):
+            print(self._obj)
