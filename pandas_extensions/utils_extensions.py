@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+import string
 from typing import Any, Optional, Union
 
 import pandas as pd
@@ -127,3 +128,32 @@ class CustomUtilsAccessor:
             "display.max_rows", None, "display.max_columns", None, *args
         ):
             print(self._obj)
+
+    @staticmethod
+    def _normalize_column_name(name: str) -> str:
+        separator_puncs = {"-", "_", "\\", " "}
+        to_delete = "".join(set(string.punctuation) - separator_puncs)
+
+        name = (
+            name.encode("ascii", "ignore")
+            .decode("ascii")
+            .strip()
+            .lower()
+            .translate(str.maketrans("", "", to_delete))
+            .translate(str.maketrans({s: " " for s in separator_puncs}))
+        )
+
+        name = " ".join(name.split())
+
+        for s in separator_puncs - {"_"}:
+            name = name.replace(s, "_")
+
+        return name
+
+    def normalize_names(self, keys: Optional[Keys] = None) -> PandasObj:
+        obj = self._obj
+        keys = self._set_keys(keys)
+        mapper = {k: self._normalize_column_name(k) for k in keys}
+        obj = obj.rename(columns=mapper)
+
+        return obj
