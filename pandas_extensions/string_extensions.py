@@ -32,7 +32,7 @@ class CustomStringExtensionsAccessor:
         col = (
             col.str.encode("ascii", "ignore")
             .str.decode("ascii")
-            .str.upper()
+            .str.lower()
             .str.strip()
             .str_exts.remove_puncs()
             .str.replace(r"\s+", " ", regex=True)
